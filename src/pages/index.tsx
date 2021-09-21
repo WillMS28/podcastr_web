@@ -30,14 +30,16 @@ type HomeProps = {
 
 // usamos as props para recuperar os dados da API
 export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
-  const { play } = useContext(PlayerContext)
+  const { playList } = useContext(PlayerContext)
+
+  const episodeList = [...latesEpisodes, ...allEpisodes]
 
   return (
     <div className={styles.homepage}>
       <section className={styles.latesEpisodes}>
         <h2>Últimos lançamentos</h2>
         <ul>
-          { latesEpisodes.map(episode => {
+          { latesEpisodes.map((episode, index) => {
             return (
               <li key={episode.id}>
                 <Image
@@ -57,7 +59,7 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type='button' onClick={() => play(episode)}>
+                <button type='button' onClick={() => playList(episodeList, index)}>
                   <img src="/play-green.svg" alt="Tocar" />
                 </button>
               </li>
@@ -81,7 +83,7 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
               </tr>
             </thead>
             <tbody>
-              {allEpisodes.map( episode => {
+              {allEpisodes.map( (episode, index) => {
                 return (
                   <tr key={episode.id}>
                     <td style={{ width: 72 }} >
@@ -102,7 +104,7 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
                     <td style={{ width: 100 }}>{episode.publishedAt}</td>
                     <td>{episode.durationAsString}</td>
                     <td>
-                      <button type='button'>
+                      <button type='button' onClick={() => playList(episodeList, index + latesEpisodes.length)}>
                         <img src="/play-green.svg" alt="" />
                       </button>
                     </td>
