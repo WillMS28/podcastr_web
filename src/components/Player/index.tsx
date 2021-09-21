@@ -1,11 +1,11 @@
 
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Slider from 'rc-slider'
 
 import 'rc-slider/assets/index.css'
 
-import { PlayerContext } from '../../contexts/PlayerContext'
+import { usePlayer } from '../../contexts/PlayerContext'
 
 import styles from './styles.module.scss'
 
@@ -19,8 +19,10 @@ export function Player() {
     togglePlay,
     setPlayingState,
     playNext,
+    hasNext,
+    hasPrevious,
     playPrevious
-  } = useContext(PlayerContext)
+  } = usePlayer()
 
   const episode = episodeList[currentEpisodeIndex]
 
@@ -87,7 +89,7 @@ export function Player() {
           <button type='button' disabled={!episode}>
             <img src="/shuffle.svg" alt="Embaralhar" />
           </button>
-          <button type='button' disabled={!episode} onClick={playPrevious}>
+          <button type='button' disabled={!episode || !hasPrevious} onClick={playPrevious}>
             <img src="/play-previous.svg" alt="Tocar anterior" />
           </button>
           <button
@@ -102,7 +104,7 @@ export function Player() {
               <img src="/play.svg" alt="Tocar" />
             ) }
           </button>
-          <button type='button' disabled={!episode} onClick={playNext}>
+          <button type='button' disabled={!episode || !hasNext} onClick={playNext}>
             <img src="/play-next.svg" alt="Tocar a próxima" />
           </button>
           <button type='button' disabled={!episode}>

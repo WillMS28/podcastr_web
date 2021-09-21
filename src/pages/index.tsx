@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,7 +6,7 @@ import { parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { api } from '../services/api'
 
-import { PlayerContext } from '../contexts/PlayerContext'
+import { usePlayer } from '../contexts/PlayerContext'
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
 
 import styles from './home.module.scss'
@@ -30,7 +29,7 @@ type HomeProps = {
 
 // usamos as props para recuperar os dados da API
 export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
-  const { playList } = useContext(PlayerContext)
+  const { playList } = usePlayer()
 
   const episodeList = [...latesEpisodes, ...allEpisodes]
 

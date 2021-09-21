@@ -23,10 +23,10 @@
     font-weight: 600;
   }
 
-  .empty {
+  footer {
     align-self: stretch;
 
-    &.empty {
+    &.empty .progress {
       opacity: 0.5;
     }
   }
@@ -111,6 +111,7 @@
 
     &:disabled {
       cursor: default;
+      opacity: 0.6;
     }
 
     &:hover:not(:disabled) {
