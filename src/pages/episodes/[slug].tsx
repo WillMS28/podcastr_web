@@ -5,6 +5,7 @@ import format from 'date-fns/format'
 import { parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import Link from 'next/link'
+import { usePlayer } from '../../contexts/PlayerContext'
 
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString'
 
@@ -15,7 +16,7 @@ type Episode = {
   title: string
   thumbnail: string
   members: string
-  duration: string
+  duration: number
   durationAsString: string
   description: string
   url: string
@@ -31,11 +32,13 @@ const minutes = 60
 const hours = 24
 
 export default function Episode({ episode }: EpisodeProps) {
+  const { play } = usePlayer()
+
   return (
     <div className={styles.episode}>
       <div className={styles.thumbnailContainer}>
         <Link href='/'>
-          <button type='button'>
+          <button type='button' onClick={() => play(episode)}>
             <img src="/arrow-left.svg" alt="Voltar" />
           </button>
         </Link>
