@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
 import format from 'date-fns/format'
 import { parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
@@ -35,6 +36,9 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
 
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title>Home | Podcastr</title>
+      </Head>
       <section className={styles.latesEpisodes}>
         <h2>Últimos lançamentos</h2>
         <ul>
